@@ -1,4 +1,4 @@
-package com.example.cookapp
+package com.example.cookapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,17 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.cookapp.databinding.RecipeListScreenBinding
+import com.example.cookapp.R
+import com.example.cookapp.databinding.RecipeListActivityBinding
 
 class RecipeListFragment : Fragment() {
-    private var _binding: RecipeListScreenBinding? = null
+    private var _binding: RecipeListActivityBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = RecipeListScreenBinding.inflate(inflater, container, false)
+        _binding = RecipeListActivityBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -24,7 +25,7 @@ class RecipeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Navigate to Recipe Details
-        binding.recipeItem1.setOnClickListener {
+        binding.recipesRecycleView.setOnClickListener {
             findNavController().navigate(R.id.action_recipeList_to_recipeDetails)
         }
     }

@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.plugin.ide.kotlinExtrasSerialization
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 android {
@@ -39,7 +42,7 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.kotlinx.serialization.json.v173)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

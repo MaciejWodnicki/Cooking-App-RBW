@@ -7,9 +7,9 @@
     <!-- Recipe List Screen -->
     <fragment
         android:id="@+id/recipeListFragment"
-        android:name="com.example.cookapp.RecipeListFragment"
+        android:name="com.example.cookapp.fragments.RecipeListFragment"
         android:label="Recipe List"
-        tools:layout="@layout/recipe_list_screen">
+        tools:layout="@layout/recipe_list_activity">
         <action
             android:id="@+id/action_recipeList_to_recipeDetails"
             app:destination="@id/recipeDetailsFragment" />
@@ -18,9 +18,9 @@
     <!-- Recipe Details Screen -->
     <fragment
         android:id="@+id/recipeDetailsFragment"
-        android:name="com.example.cookapp.RecipeDetailsFragment"
+        android:name="com.example.cookapp.fragments.RecipeDetailsFragment"
         android:label="Recipe Details"
-        tools:layout="@layout/recipe_details_screen">
+        tools:layout="@layout/recipe_details_activity">
         <action
             android:id="@+id/action_recipeDetails_to_recipeSteps"
             app:destination="@id/recipeStepsFragment" />
@@ -36,9 +36,9 @@
     <!-- Recipe Steps Screen -->
     <fragment
         android:id="@+id/recipeStepsFragment"
-        android:name="com.example.cookapp.RecipeStepsFragment"
+        android:name="com.example.cookapp.fragments.RecipeStepsFragment"
         android:label="Recipe Steps"
-        tools:layout="@layout/recipe_guide_screen">
+        tools:layout="@layout/recipe_guide_activity">
         <action
             android:id="@+id/action_recipeSteps_to_recipeDetails"
             app:destination="@id/recipeDetailsFragment" />
@@ -50,9 +50,9 @@
     <!-- Recipe Ingredients Screen -->
     <fragment
         android:id="@+id/recipeIngredientsFragment"
-        android:name="com.example.cookapp.RecipeIngredientsFragment"
+        android:name="com.example.cookapp.fragments.RecipeIngredientsFragment"
         android:label="Recipe Ingredients"
-        tools:layout="@layout/recipe_ingredients_screen">
+        tools:layout="@layout/recipe_ingredients_activity">
         <action
             android:id="@+id/action_recipeIngredients_to_recipeDetails"
             app:destination="@id/recipeDetailsFragment" />
