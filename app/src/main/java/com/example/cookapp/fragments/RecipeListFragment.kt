@@ -25,7 +25,11 @@ class RecipeListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Navigate to Recipe Details
-        binding.recipesRecycleView.setOnClickListener {
+        binding.przepis1.setOnClickListener {
+            findNavController().navigate(R.id.action_recipeList_to_recipeDetails)
+        }
+
+        binding.przepis2.setOnClickListener {
             findNavController().navigate(R.id.action_recipeList_to_recipeDetails)
         }
     }
