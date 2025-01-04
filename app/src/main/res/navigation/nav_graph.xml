@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/recipeListFragment">
 
+    <action
+        android:id="@+id/fragment_to_CameraInput"
+        app:destination="@id/cameraInputFragment"
+        />
+
     <!-- Recipe List Screen -->
     <fragment
         android:id="@+id/recipeListFragment"
@@ -61,4 +66,9 @@
             app:destination="@id/recipeStepsFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/cameraInputFragment"
+        android:name="com.example.cookapp.CameraInput"
+        android:label="fragment_camera_input"
+        tools:layout="@layout/fragment_camera_input" />
 </navigation>
