@@ -29,10 +29,6 @@ class RecipeDetailsFragment : Fragment() {
             findNavController().navigate(R.id.action_recipeDetails_to_recipeSteps)
         }
 
-        // Navigate to Recipe Ingredients
-        binding.ingredientsButton2.setOnClickListener {
-            findNavController().navigate(R.id.action_recipeDetails_to_recipeIngredients)
-        }
     }
 
     override fun onDestroyView() {

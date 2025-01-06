@@ -13,7 +13,7 @@
     <fragment
         android:id="@+id/recipeListFragment"
         android:name="com.example.cookapp.fragments.RecipeListFragment"
-        android:label="Recipe List"
+        android:label="Recipes"
         tools:layout="@layout/recipe_list_activity">
         <action
             android:id="@+id/action_recipeList_to_recipeDetails"
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/recipeDetailsFragment"
         android:name="com.example.cookapp.fragments.RecipeDetailsFragment"
-        android:label="Recipe Details"
+        android:label="Details"
         tools:layout="@layout/recipe_details_activity">
         <action
             android:id="@+id/action_recipeDetails_to_recipeSteps"
@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/recipeStepsFragment"
         android:name="com.example.cookapp.fragments.RecipeStepsFragment"
-        android:label="Recipe Steps"
+        android:label="Instructions"
         tools:layout="@layout/recipe_guide_activity">
         <action
             android:id="@+id/action_recipeSteps_to_recipeDetails"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/recipeIngredientsFragment"
         android:name="com.example.cookapp.fragments.RecipeIngredientsFragment"
-        android:label="Recipe Ingredients"
+        android:label="Ingredients"
         tools:layout="@layout/recipe_ingredients_activity">
         <action
             android:id="@+id/action_recipeIngredients_to_recipeDetails"
