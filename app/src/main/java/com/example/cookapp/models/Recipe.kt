@@ -66,3 +66,5 @@ data class Recipe(
     val strCreativeCommonsConfirmed: String? = null,
     val dateModified: String? = null
 )
+
+

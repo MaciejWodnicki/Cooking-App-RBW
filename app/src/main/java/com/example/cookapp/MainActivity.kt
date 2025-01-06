@@ -3,17 +3,24 @@ package com.example.cookapp
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.ListFragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cookapp.adapters.ItemAdapter
 import com.example.cookapp.databinding.ActivityMainBinding
+import com.example.cookapp.fragments.RecipeStepsFragment
+import java.util.Locale
+
 
 class MainActivity : AppCompatActivity() {
     private val multiPermissionCode = 123
@@ -25,6 +32,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var textToSpeech: TextToSpeech
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -34,11 +44,27 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        // Initialize Text-to-Speech
+        textToSpeech = TextToSpeech(this) { status: Int ->
+            if (status != TextToSpeech.ERROR) {
+                textToSpeech.setLanguage(Locale.US)
+            }
+        }
+
+
         binding.fabCamera.setOnClickListener {
             if (checkMultiplePermissions()) {
                 goToVideoCapturing()
             }
         }
+    }
+    override fun onDestroy() {
+        // Shutdown Text-to-Speech
+        if (::textToSpeech.isInitialized) {
+            textToSpeech.stop()
+            textToSpeech.shutdown()
+        }
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
