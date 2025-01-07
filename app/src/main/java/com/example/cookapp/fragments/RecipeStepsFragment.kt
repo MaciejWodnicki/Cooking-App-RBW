@@ -2,6 +2,7 @@ package com.example.cookapp.fragments
 
 import LoadRecipesFromAssets
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.example.cookapp.adapters.InstructionsAdapter
 import com.example.cookapp.adapters.ItemAdapter
 import com.example.cookapp.databinding.RecipeGuideActivityBinding
 import com.example.cookapp.utils.GetInstructionArrayFromRecipe
+import java.util.Locale
 
 class RecipeStepsFragment : Fragment() {
     private var _binding: RecipeGuideActivityBinding? = null
@@ -23,6 +25,8 @@ class RecipeStepsFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: InstructionsAdapter
+    private lateinit var tts: TextToSpeech
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +43,18 @@ class RecipeStepsFragment : Fragment() {
 
         val instructions = GetInstructionArrayFromRecipe(recipes[0])
 
+
+        // Initialize Text-to-Speech
+        tts = TextToSpeech(this.context) { status: Int ->
+            if (status != TextToSpeech.ERROR) {
+                tts.setLanguage(Locale.US)
+            }
+        }
+
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        adapter = InstructionsAdapter(instructions) { recipe ->
-            Toast.makeText(this.context, "Selected: ${recipe}", Toast.LENGTH_SHORT).show()
+        adapter = InstructionsAdapter(instructions) { step ->
+            speakOut(step)
         }
         // Navigate to Recipe Details
         binding.ingredientsButton.setOnClickListener {
@@ -52,7 +64,18 @@ class RecipeStepsFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        if (::tts.isInitialized) {
+            tts.stop()
+            tts.shutdown()
+        }
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun speakOut(text: String) {
+        if (tts.isSpeaking) {
+            tts.stop()
+        }
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
     }
 }

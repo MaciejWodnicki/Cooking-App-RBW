@@ -44,28 +44,13 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        // Initialize Text-to-Speech
-        textToSpeech = TextToSpeech(this) { status: Int ->
-            if (status != TextToSpeech.ERROR) {
-                textToSpeech.setLanguage(Locale.US)
-            }
-        }
-
-
         binding.fabCamera.setOnClickListener {
             if (checkMultiplePermissions()) {
                 goToVideoCapturing()
             }
         }
     }
-    override fun onDestroy() {
-        // Shutdown Text-to-Speech
-        if (::textToSpeech.isInitialized) {
-            textToSpeech.stop()
-            textToSpeech.shutdown()
-        }
-        super.onDestroy()
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
