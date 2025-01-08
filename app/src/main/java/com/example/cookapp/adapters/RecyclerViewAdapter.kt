@@ -54,11 +54,11 @@ class InstructionsAdapter(
         when (holder) {
             is ViewHolder -> {
                 holder.textView.text = item
-                holder.textView.setOnClickListener { onClick(item) }
+                holder.itemView.setOnClickListener { onClick(item) }
             }
             is SpecialViewHolder -> {
                 holder.textView.text = item
-                holder.textView.setOnClickListener { onClick(item) }
+                holder.itemView.setOnClickListener { onClick(item) }
             }
         }
     }

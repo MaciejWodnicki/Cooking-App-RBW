@@ -22,7 +22,8 @@ android:orientation="vertical">
         <TextView
             android:id="@+id/currentStepText"
             android:layout_width="361dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingVertical="8sp"
             android:text="TextView"
             android:textSize="36sp" />
 

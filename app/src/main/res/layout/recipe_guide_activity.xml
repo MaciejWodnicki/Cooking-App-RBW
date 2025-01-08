@@ -12,19 +12,19 @@
         android:orientation="vertical">
 
         <!-- RecyclerView occupies the remaining space -->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="18dp"
-            android:layout_weight="1" />  <!-- Use layout_weight to fill remaining space -->
+            android:layout_height="545dp"
+            android:layout_weight="1" />
+
 
         <!-- RecyclerView occupies the remaining space -->
 
         <!-- Use layout_weight to fill remaining space -->
 
     </LinearLayout>
-
-    <!-- Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ingredientsButton"
         android:layout_width="wrap_content"
@@ -34,4 +34,16 @@
         android:clickable="true"
         app:backgroundTint="#E8DCFD"
         app:srcCompat="?attr/actionModePasteDrawable" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/nextStepButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="16dp"
+        android:layout_weight="1"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/ic_menu_send" />  <!-- Use layout_weight to fill remaining space -->
+
+    <!-- Floating Action Button -->
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

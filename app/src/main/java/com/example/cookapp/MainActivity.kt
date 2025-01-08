@@ -10,16 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.ListFragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.cookapp.adapters.ItemAdapter
 import com.example.cookapp.databinding.ActivityMainBinding
-import com.example.cookapp.fragments.RecipeStepsFragment
-import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {

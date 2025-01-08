@@ -1,22 +1,21 @@
 package com.example.cookapp.fragments
 
-import LoadRecipesFromAssets
+import android.content.Intent.getIntent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cookapp.MainActivity
 import com.example.cookapp.R
 import com.example.cookapp.adapters.InstructionsAdapter
-import com.example.cookapp.adapters.ItemAdapter
 import com.example.cookapp.databinding.RecipeGuideActivityBinding
 import com.example.cookapp.utils.GetInstructionArrayFromRecipe
+import com.example.cookapp.utils.LoadRecipesFromAssets
 import java.util.Locale
 
 class RecipeStepsFragment : Fragment() {
@@ -27,7 +26,7 @@ class RecipeStepsFragment : Fragment() {
     private lateinit var adapter: InstructionsAdapter
     private lateinit var tts: TextToSpeech
 
-    var currentStep: Int = 3
+    var currentStep: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,11 +57,23 @@ class RecipeStepsFragment : Fragment() {
             isSpecial = { position -> position == currentStep }) { step ->
             speakOut(step)
         }
-        // Navigate to Recipe Details
+        recyclerView.adapter = adapter
+
+        // Navigate to Recipe Ingredients
         binding.ingredientsButton.setOnClickListener {
             findNavController().navigate(R.id.action_recipeStepsFragment_to_recipeIngredientsFragment)
         }
-        recyclerView.adapter = adapter
+
+        binding.nextStepButton.setOnClickListener {
+            currentStep++
+            adapter.notifyDataSetChanged()
+            recyclerView.smoothScrollToPosition(currentStep+6)
+
+            //read out the new step
+            recyclerView.post {
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(currentStep)?.itemView?.performClick()
+            }}
+
     }
 
     override fun onDestroyView() {
