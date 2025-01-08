@@ -14,11 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cookapp.R
 import com.example.cookapp.adapters.InstructionsAdapter
 import com.example.cookapp.databinding.RecipeGuideActivityBinding
+import com.example.cookapp.utils.GestureDetectionHelper
 import com.example.cookapp.utils.GetInstructionArrayFromRecipe
 import com.example.cookapp.utils.LoadRecipesFromAssets
 import java.util.Locale
 
 class RecipeStepsFragment : Fragment() {
+    private lateinit var gestureDetectionHelper: GestureDetectionHelper
+
     private var _binding: RecipeGuideActivityBinding? = null
     private val binding get() = _binding!!
 
@@ -64,16 +67,26 @@ class RecipeStepsFragment : Fragment() {
             findNavController().navigate(R.id.action_recipeStepsFragment_to_recipeIngredientsFragment)
         }
 
-        binding.nextStepButton.setOnClickListener {
-            currentStep++
-            adapter.notifyDataSetChanged()
-            recyclerView.smoothScrollToPosition(currentStep+6)
+        binding.nextStepButton.setOnClickListener { goToNextStep() }
 
-            //read out the new step
-            recyclerView.post {
-                val viewHolder = recyclerView.findViewHolderForAdapterPosition(currentStep)?.itemView?.performClick()
-            }}
+        gestureDetectionHelper = GestureDetectionHelper(requireContext()) {
+            requireActivity().runOnUiThread {
+                goToNextStep()
+            }
+        }
 
+        gestureDetectionHelper.prepareCamera()
+    }
+
+    private fun goToNextStep(){
+        currentStep++
+        adapter.notifyDataSetChanged()
+        recyclerView.smoothScrollToPosition(currentStep+6)
+
+        //read out the new step
+        recyclerView.post {
+            val viewHolder = recyclerView.findViewHolderForAdapterPosition(currentStep)?.itemView?.performClick()
+        }
     }
 
     override fun onDestroyView() {
