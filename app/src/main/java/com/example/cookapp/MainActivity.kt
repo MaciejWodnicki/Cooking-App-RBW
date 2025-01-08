@@ -1,20 +1,30 @@
 package com.example.cookapp
 
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.speech.tts.TextToSpeech
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.cookapp.databinding.ActivityMainBinding
+import com.example.cookapp.fragments.RecipeStepsFragment
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,8 +36,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
-    private lateinit var textToSpeech: TextToSpeech
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 goToVideoCapturing()
             }
         }
+
     }
 
 
@@ -150,4 +159,5 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, navController.currentDestination!!.label,Toast.LENGTH_LONG).show()
         navController.navigate(R.id.fragment_to_CameraInput)
     }
+
 }
