@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.cookapp.R
 import com.example.cookapp.adapters.InstructionsAdapter
 import com.example.cookapp.databinding.RecipeGuideActivityBinding
+import com.example.cookapp.utils.GestureDetectionHelper
 import com.example.cookapp.utils.GetInstructionArrayFromRecipe
 import com.example.cookapp.utils.LoadRecipesFromAssets
 import java.util.Locale
@@ -32,6 +33,7 @@ class RecipeStepsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: InstructionsAdapter
     private lateinit var tts: TextToSpeech
+    private lateinit var gestureDetectionHelper: GestureDetectionHelper
 
     private lateinit var speechRecognizer: SpeechRecognizer
     private lateinit var recognitionListener: RecognitionListener
@@ -77,7 +79,12 @@ class RecipeStepsFragment : Fragment() {
 
         }
 
-
+        gestureDetectionHelper = GestureDetectionHelper(requireContext()) {
+            requireActivity().runOnUiThread {
+                goToNextStep()
+            }
+        }
+        gestureDetectionHelper.prepareCamera()
 
 
         // Navigate to Recipe Ingredients
