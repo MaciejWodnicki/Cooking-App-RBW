@@ -27,6 +27,7 @@ class RecipeStepsFragment : Fragment() {
     private lateinit var adapter: InstructionsAdapter
     private lateinit var tts: TextToSpeech
 
+    var currentStep: Int = 3
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +54,8 @@ class RecipeStepsFragment : Fragment() {
 
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        adapter = InstructionsAdapter(instructions) { step ->
+        adapter = InstructionsAdapter(instructions,
+            isSpecial = { position -> position == currentStep }) { step ->
             speakOut(step)
         }
         // Navigate to Recipe Details
