@@ -2,6 +2,7 @@ package com.example.cookapp.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.toColor
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -72,9 +74,12 @@ class RecipeStepsFragment : Fragment() {
             speechRecognitionEnabled = !speechRecognitionEnabled
             if(speechRecognitionEnabled){
                 handler.post(continuousTask)
+                binding.toggleSpeechRecognition.alpha=0.4f
+
             }
             else{
                 handler.removeCallbacks(continuousTask)
+                binding.toggleSpeechRecognition.alpha=1.0f
             }
 
         }
@@ -106,7 +111,8 @@ class RecipeStepsFragment : Fragment() {
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         adapter = InstructionsAdapter(instructions,
-            isSpecial = { position -> position == currentStep }) { step ->
+            isSpecial = { position -> position == currentStep }) { step, position ->
+            goToStep(position)
             speakOut(step)
         }
         recyclerView.adapter = adapter
@@ -117,6 +123,12 @@ class RecipeStepsFragment : Fragment() {
             tts.stop()
         }
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null)
+    }
+
+    private fun goToStep(step: Int){
+        currentStep = step
+        adapter.notifyDataSetChanged()
+        recyclerView.smoothScrollToPosition(currentStep+6)
     }
 
     fun goToNextStep(){
@@ -143,8 +155,6 @@ class RecipeStepsFragment : Fragment() {
 
     private fun setupSpeechRecognition(){
         // Initialize SpeechRecognizer and RecognitionListener
-
-        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this.context)
 
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this.context)
 
@@ -176,7 +186,7 @@ class RecipeStepsFragment : Fragment() {
                         recognizedText.contains("next") -> {
                             goToNextStep()
                         }
-                        recognizedText.contains("previous") -> {
+                        recognizedText.contains("back") -> {
                             goToPreviousStep()
                         }
 

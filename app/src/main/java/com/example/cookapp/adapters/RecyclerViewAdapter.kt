@@ -13,7 +13,7 @@ import com.example.cookapp.utils.GetInstructionArrayFromRecipe
 class InstructionsAdapter(
     private val items: Array<String>,
     private val isSpecial: (Int) -> Boolean, // Determines if the item at a given position is special
-    private val onClick: (String) -> Unit
+    private val onClick: (String, Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -54,11 +54,11 @@ class InstructionsAdapter(
         when (holder) {
             is ViewHolder -> {
                 holder.textView.text = item
-                holder.itemView.setOnClickListener { onClick(item) }
+                holder.itemView.setOnClickListener { onClick(item, position) }
             }
             is SpecialViewHolder -> {
                 holder.textView.text = item
-                holder.itemView.setOnClickListener { onClick(item) }
+                holder.itemView.setOnClickListener { onClick(item, position) }
             }
         }
     }
